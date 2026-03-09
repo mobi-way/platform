@@ -565,8 +565,10 @@ export function useFleet(): UseFleetReturn {
         lat:         entry.state.lat,
         lon:         entry.state.lon,
         passengers:  entry.state.passengers,
+        ocupacao:    entry.state.passengers,   // alias for driver app
         capacity:    BUS_CAPACITY,
         queueLength: entry.state.priorityQueue.length,
+        fila:        entry.state.priorityQueue.length,  // alias for driver app
       }))
 
       const stopList: StopSnapshot[] = stopsRef.current.map((s) => ({
@@ -604,8 +606,10 @@ export function useFleet(): UseFleetReturn {
       lat:         entry.state.lat,
       lon:         entry.state.lon,
       passengers:  entry.state.passengers,
+      ocupacao:    entry.state.passengers,
       capacity:    BUS_CAPACITY,
       queueLength: entry.state.priorityQueue.length,
+      fila:        entry.state.priorityQueue.length,
     }))
     const paradas: StopSnapshot[] = stopsRef.current.map((s) => ({
       id: s.id, lat: s.lat, lon: s.lon, passengers: s.passengers,

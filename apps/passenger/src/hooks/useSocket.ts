@@ -57,6 +57,7 @@ export function useSocket({
 
     socket.on('connect', () => {
       connectedRef.current = true
+      socket.emit('join_room', 'passenger')
       onConnectRef.current?.()
     })
 

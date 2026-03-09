@@ -39,7 +39,8 @@ export function useSocket({ onTripRequest, onTripOptionsRequest }: UseSocketOpti
 
     socket.on('connect', () => {
       isConnectedRef.current = true
-      console.log('[Socket] Connected:', socket.id)
+      socket.emit('join_room', 'admin')
+      console.log('[Socket] Connected as admin:', socket.id)
     })
 
     socket.on('disconnect', () => {
@@ -52,10 +53,11 @@ export function useSocket({ onTripRequest, onTripOptionsRequest }: UseSocketOpti
       onTripRequestRef.current(req)
     })
 
-    // trip_options_request: { origin, dest }
+    // trip_options_request: { origin, dest, requesterId }
     socket.on('trip_options_request', (req: TripOptionsRequest) => {
       onTripOptionsRequestRef.current(req, (options) => {
-        socket.emit('trip_options_response', { options })
+        // Must echo requesterId so the API can route response to the right passenger
+        socket.emit('trip_options_response', { options, requesterId: req.requesterId })
       })
     })
 

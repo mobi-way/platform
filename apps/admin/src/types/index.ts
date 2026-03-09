@@ -33,8 +33,10 @@ export interface BusSnapshot {
   lat: number
   lon: number
   passengers: number
+  ocupacao: number    // alias = passengers (for driver app)
   capacity: number
   queueLength: number
+  fila: number        // alias = queueLength (for driver app)
 }
 
 // ── Stop snapshot for Socket.io / UI ─────────────────────────────────────────
@@ -70,8 +72,9 @@ export interface TripRequest {
 
 // ── trip_options_request payload received from app client ────────────────────
 export interface TripOptionsRequest {
-  origin: { lat: number; lon: number }
-  dest:   { lat: number; lon: number }
+  origin:      { lat: number; lon: number }
+  dest:        { lat: number; lon: number }
+  requesterId: string   // passenger socket.id — must echo back in response
 }
 
 // ── Cached OSRM route data ────────────────────────────────────────────────────

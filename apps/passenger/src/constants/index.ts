@@ -21,7 +21,7 @@ export const QUEUE_PENALTY_S = 30 as const
 /** Socket.io server URL — can be overridden via VITE_SOCKET_URL */
 export const SOCKET_URL: string =
   (import.meta as unknown as { env: Record<string, string> }).env.VITE_SOCKET_URL ??
-  'http://localhost:3000'
+  'http://localhost:3001'
 
 // ─── Socket event names ────────────────────────────────────────────────────────
 export const EVT_SYSTEM_UPDATE        = 'system_update'           as const
