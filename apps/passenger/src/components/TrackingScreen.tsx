@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import type { Bus, Stop, TripStage } from '../types'
 import { ETA_FACTOR, ARRIVAL_THRESHOLD_M } from '../constants'
 

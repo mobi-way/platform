@@ -5,7 +5,7 @@ import { DEFAULT_CENTER, DEFAULT_ZOOM } from '../constants'
 
 // ─── Leaflet icon factory ─────────────────────────────────────────────────────
 
-function buildStopIcon(type: StopMarkerType): L.DivIcon {
+function buildStopIcon(type: StopMarkerType): { icon: L.DivIcon; zIndexOffset: number } {
   const colorMap: Record<StopMarkerType, string> = {
     neutral: '#3b82f6',
     origin:  '#22c55e',
@@ -24,7 +24,7 @@ function buildStopIcon(type: StopMarkerType): L.DivIcon {
   const color = colorMap[type]
   const scale = scaleMap[type]
 
-  return L.divIcon({
+  const icon = L.divIcon({
     className: '',
     html: `
       <div style="
@@ -40,8 +40,8 @@ function buildStopIcon(type: StopMarkerType): L.DivIcon {
       </div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 30],
-    zIndexOffset: zMap[type],
   })
+  return { icon, zIndexOffset: zMap[type] }
 }
 
 const userIcon = L.divIcon({
@@ -172,7 +172,8 @@ const MapView = forwardRef<MapViewHandle, MapViewProps>(
           } else if (mode === 'dest') {
             type = 'dest'
           }
-          const marker = L.marker([stop.lat, stop.lon], { icon: buildStopIcon(type) })
+          const { icon, zIndexOffset } = buildStopIcon(type)
+          const marker = L.marker([stop.lat, stop.lon], { icon, zIndexOffset })
           if (onStopClick) marker.on('click', () => onStopClick(stop))
           marker.addTo(layer)
         })
@@ -200,11 +201,11 @@ const MapView = forwardRef<MapViewHandle, MapViewProps>(
       },
       setStaticOriginMarker(lat, lon) {
         staticLayerRef.current &&
-          L.marker([lat, lon], { icon: buildStopIcon('origin') }).addTo(staticLayerRef.current)
+          L.marker([lat, lon], { ...buildStopIcon('origin') }).addTo(staticLayerRef.current)
       },
       setStaticDestMarker(lat, lon) {
         staticLayerRef.current &&
-          L.marker([lat, lon], { icon: buildStopIcon('dest') }).addTo(staticLayerRef.current)
+          L.marker([lat, lon], { ...buildStopIcon('dest') }).addTo(staticLayerRef.current)
       },
       clearStaticMarkers() {
         staticLayerRef.current?.clearLayers()

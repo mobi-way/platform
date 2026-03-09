@@ -1,4 +1,3 @@
-import React from 'react'
 import type { TripOption, Stop } from '../types'
 import { ETA_FACTOR, QUEUE_PENALTY_S } from '../constants'
 
