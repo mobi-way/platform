@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react'
 import type { AppScreen, NavigationState, PassengerDelta, SystemUpdate } from './types'
 import { useSocket } from './hooks/useSocket'
+import { useAuth } from './contexts/AuthContext'
 import LoginScreen from './components/LoginScreen'
 import NavigationMap from './components/NavigationMap'
 
 export default function App() {
+  const { user, loading, accessToken } = useAuth()
   const [screen, setScreen] = useState<AppScreen>('login')
   const [busId, setBusId] = useState('')
   const [systemUpdate, setSystemUpdate] = useState<SystemUpdate | null>(null)
@@ -22,6 +24,7 @@ export default function App() {
 
   useSocket({
     enabled: screen === 'navigating',
+    accessToken,
     onSystemUpdate: useCallback(
       (data: SystemUpdate) => {
         setSystemUpdate(data)
@@ -32,13 +35,21 @@ export default function App() {
     ),
   })
 
-  const handleLogin = useCallback((id: string) => {
+  const handleBusSelected = useCallback((id: string) => {
     setBusId(id)
     setScreen('navigating')
   }, [])
 
-  if (screen === 'login') {
-    return <LoginScreen onLogin={handleLogin} />
+  if (loading) {
+    return (
+      <div className="absolute inset-0 bg-[#111827] flex items-center justify-center">
+        <div className="text-[#3b82f6] text-xl font-bold animate-pulse">Carregando...</div>
+      </div>
+    )
+  }
+
+  if (!user || screen === 'login') {
+    return <LoginScreen onBusSelected={handleBusSelected} />
   }
 
   return (

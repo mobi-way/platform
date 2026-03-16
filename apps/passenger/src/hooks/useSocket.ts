@@ -15,6 +15,7 @@ import type {
 } from '../types'
 
 export interface UseSocketOptions {
+  accessToken: string | null
   onSystemUpdate: (payload: SystemUpdatePayload) => void
   onTripOptionsResponse: (payload: TripOptionsResponsePayload) => void
   onConnect?: () => void
@@ -28,6 +29,7 @@ export interface UseSocketReturn {
 }
 
 export function useSocket({
+  accessToken,
   onSystemUpdate,
   onTripOptionsResponse,
   onConnect,
@@ -48,22 +50,28 @@ export function useSocket({
   useEffect(() => { onDisconnectRef.current = onDisconnect }, [onDisconnect])
 
   useEffect(() => {
+    if (!accessToken) return
+
     const socket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 10,
       reconnectionDelay: 2000,
+      auth: { token: accessToken },
     })
     socketRef.current = socket
 
     socket.on('connect', () => {
       connectedRef.current = true
-      socket.emit('join_room', 'passenger')
       onConnectRef.current?.()
     })
 
     socket.on('disconnect', () => {
       connectedRef.current = false
       onDisconnectRef.current?.()
+    })
+
+    socket.on('connect_error', (err) => {
+      console.error('[Socket] Auth error:', err.message)
     })
 
     socket.on(EVT_SYSTEM_UPDATE, (payload: SystemUpdatePayload) => {
@@ -79,7 +87,7 @@ export function useSocket({
       socket.disconnect()
       socketRef.current = null
     }
-  }, []) // intentionally empty — singleton connection for app lifetime
+  }, [accessToken])
 
   const requestTripOptions = useCallback((payload: TripOptionsRequestPayload) => {
     socketRef.current?.emit(EVT_TRIP_OPTIONS_REQUEST, payload)

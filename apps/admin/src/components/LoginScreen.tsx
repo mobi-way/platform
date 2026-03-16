@@ -1,75 +1,13 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { supabase } from '@mobi-way/supabase/client'
 
-interface Props {
-  onBusSelected: (busId: string) => void
-}
-
-export default function LoginScreen({ onBusSelected }: Props) {
-  const { user, profile, signIn, signUp, signOut, loading, error } = useAuth()
+export default function LoginScreen() {
+  const { signIn, signUp, loading, error } = useAuth()
   const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [busValue, setBusValue] = useState('')
 
-  // If authenticated, show bus selector
-  if (user && profile) {
-    async function handleBusSubmit() {
-      let id = busValue.trim().toUpperCase()
-      if (!id) return
-      if (!id.startsWith('L')) id = 'L' + id
-
-      // Save bus_id to profile
-      await supabase.from('profiles').update({ bus_id: id }).eq('id', user!.id)
-      onBusSelected(id)
-    }
-
-    return (
-      <div className="absolute inset-0 bg-[#111827] z-[3000] flex flex-col items-center justify-center p-5">
-        <div
-          className="bg-[#1f2937] p-8 rounded-2xl text-center w-full max-w-xs border border-[#374151]"
-          style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.8)' }}
-        >
-          <h1 className="m-0 text-[#3b82f6] font-rajdhani text-4xl font-bold uppercase tracking-widest">
-            NavBus
-          </h1>
-          <p className="text-[#9ca3af] mt-1 mb-0 text-sm">Interface do Motorista</p>
-          <p className="text-[#6b7280] mt-1 mb-4 text-xs">
-            {profile.full_name || user.email}
-          </p>
-
-          <input
-            type="text"
-            value={busValue}
-            onChange={(e) => setBusValue(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleBusSubmit()}
-            placeholder="ID do ônibus (ex: L1)"
-            maxLength={4}
-            className="w-full mt-2 mb-5 px-4 py-4 rounded-xl border-2 border-[#374151] bg-[#111827] text-white text-2xl font-extrabold text-center uppercase outline-none focus:border-[#3b82f6] transition-colors"
-          />
-
-          <button
-            onClick={handleBusSubmit}
-            className="w-full py-4 rounded-xl border-none bg-[#3b82f6] text-white font-extrabold text-base uppercase cursor-pointer hover:bg-blue-500 active:scale-95 transition-all"
-          >
-            INICIAR ROTA
-          </button>
-
-          <button
-            type="button"
-            onClick={() => signOut()}
-            className="mt-3 text-[#9ca3af] text-xs bg-transparent border-none cursor-pointer hover:text-white transition-colors"
-          >
-            Sair da conta
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  // Not authenticated — show login/signup form
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (isSignUp) {
@@ -89,7 +27,7 @@ export default function LoginScreen({ onBusSelected }: Props) {
         <h1 className="m-0 text-[#3b82f6] font-rajdhani text-4xl font-bold uppercase tracking-widest">
           NavBus
         </h1>
-        <p className="text-[#9ca3af] mt-1 mb-4 text-sm">Interface do Motorista</p>
+        <p className="text-[#9ca3af] mt-1 mb-4 text-sm">Painel Administrativo</p>
 
         {error && (
           <div className="mb-4 p-3 rounded-lg bg-red-900/50 border border-red-700 text-red-300 text-sm">

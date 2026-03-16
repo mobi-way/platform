@@ -4,6 +4,7 @@ import { SOCKET_URL } from '../constants'
 import type { TripRequest, TripOptionsRequest, SystemUpdate, TripOption } from '../types'
 
 interface UseSocketOptions {
+  accessToken: string | null
   onTripRequest: (req: TripRequest) => void
   onTripOptionsRequest: (req: TripOptionsRequest, respondWith: (options: TripOption[]) => void) => void
 }
@@ -13,7 +14,7 @@ interface UseSocketReturn {
   isConnected: boolean
 }
 
-export function useSocket({ onTripRequest, onTripOptionsRequest }: UseSocketOptions): UseSocketReturn {
+export function useSocket({ accessToken, onTripRequest, onTripOptionsRequest }: UseSocketOptions): UseSocketReturn {
   const socketRef = useRef<Socket | null>(null)
   const isConnectedRef = useRef(false)
 
@@ -30,22 +31,28 @@ export function useSocket({ onTripRequest, onTripOptionsRequest }: UseSocketOpti
   }, [onTripOptionsRequest])
 
   useEffect(() => {
+    if (!accessToken) return
+
     const socket = io(SOCKET_URL, {
       transports: ['websocket'],
       reconnectionAttempts: 10,
       reconnectionDelay: 2000,
+      auth: { token: accessToken },
     })
     socketRef.current = socket
 
     socket.on('connect', () => {
       isConnectedRef.current = true
-      socket.emit('join_room', 'admin')
       console.log('[Socket] Connected as admin:', socket.id)
     })
 
     socket.on('disconnect', () => {
       isConnectedRef.current = false
       console.log('[Socket] Disconnected')
+    })
+
+    socket.on('connect_error', (err) => {
+      console.error('[Socket] Auth error:', err.message)
     })
 
     // trip_request: { busId, origin: {lat,lon}, dest: {lat,lon} }
@@ -65,7 +72,7 @@ export function useSocket({ onTripRequest, onTripOptionsRequest }: UseSocketOpti
       socket.disconnect()
       socketRef.current = null
     }
-  }, []) // intentionally empty — only mount/unmount
+  }, [accessToken])
 
   const emitSystemUpdate = useCallback((update: SystemUpdate) => {
     socketRef.current?.emit('system_update', update)

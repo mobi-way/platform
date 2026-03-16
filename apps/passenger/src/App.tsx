@@ -4,12 +4,14 @@ import OriginScreen from './components/OriginScreen'
 import DestinationScreen from './components/DestinationScreen'
 import OptionsScreen from './components/OptionsScreen'
 import TrackingScreen from './components/TrackingScreen'
-import { useTrip } from './hooks/useTrip'
+import { useTripWithPersistence } from './hooks/useTripPersistence'
 import { useSocket } from './hooks/useSocket'
+import { useAuth } from './contexts/AuthContext'
 import type { LocalPF } from './types'
 import { DEFAULT_ZOOM, NEARBY_RADIUS_M } from './constants'
 
 export default function App() {
+  const { accessToken } = useAuth()
   const mapRef = useRef<MapViewHandle>(null)
   const {
     state,
@@ -29,9 +31,10 @@ export default function App() {
     confirmAlighting,
     cancel,
     goBack,
-  } = useTrip()
+  } = useTripWithPersistence()
 
   const { requestTripOptions, requestTrip } = useSocket({
+    accessToken,
     onSystemUpdate,
     onTripOptionsResponse,
     onConnect: () => setConnected(true),

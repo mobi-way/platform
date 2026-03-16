@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useFleet } from './hooks/useFleet'
 import { useSocket } from './hooks/useSocket'
+import { useAuth } from './contexts/AuthContext'
 import FleetMap from './components/FleetMap'
 import BusSidebar from './components/BusSidebar'
 import StopSidebar from './components/StopSidebar'
@@ -9,6 +10,7 @@ import type { BusSnapshot, StopSnapshot } from './types'
 import { MAX_ZOOM_FOCUS } from './constants'
 
 const App: React.FC = () => {
+  const { accessToken } = useAuth()
   const fleet = useFleet()
   const emitIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -33,6 +35,7 @@ const App: React.FC = () => {
 
   // ── Socket.io ───────────────────────────────────────────────────────────
   const { emitSystemUpdate } = useSocket({
+    accessToken,
     onTripRequest:        handleTripRequest,
     onTripOptionsRequest: handleTripOptionsRequest,
   })

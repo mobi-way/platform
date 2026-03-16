@@ -7,28 +7,34 @@ const API_URL = 'http://localhost:3001'
 interface UseSocketOptions {
   onSystemUpdate: (data: SystemUpdate) => void
   enabled: boolean
+  accessToken: string | null
 }
 
-export function useSocket({ onSystemUpdate, enabled }: UseSocketOptions) {
+export function useSocket({ onSystemUpdate, enabled, accessToken }: UseSocketOptions) {
   const socketRef = useRef<Socket | null>(null)
   const callbackRef = useRef(onSystemUpdate)
   callbackRef.current = onSystemUpdate
 
   const connect = useCallback(() => {
-    if (socketRef.current) return
+    if (socketRef.current || !accessToken) return
 
     const socket = io(API_URL, {
       transports: ['websocket'],
       reconnectionDelay: 1000,
       reconnectionAttempts: Infinity,
+      auth: { token: accessToken },
     })
 
     socket.on('connect', () => {
-      socket.emit('join_room', 'driver')
+      console.log('[Socket] Connected as driver:', socket.id)
     })
 
     socket.on('system_update', (data: SystemUpdate) => {
       callbackRef.current(data)
+    })
+
+    socket.on('connect_error', (err) => {
+      console.error('[Socket] Auth error:', err.message)
     })
 
     socket.on('disconnect', () => {
@@ -36,7 +42,7 @@ export function useSocket({ onSystemUpdate, enabled }: UseSocketOptions) {
     })
 
     socketRef.current = socket
-  }, [])
+  }, [accessToken])
 
   const disconnect = useCallback(() => {
     socketRef.current?.disconnect()
@@ -44,11 +50,11 @@ export function useSocket({ onSystemUpdate, enabled }: UseSocketOptions) {
   }, [])
 
   useEffect(() => {
-    if (enabled) {
+    if (enabled && accessToken) {
       connect()
     } else {
       disconnect()
     }
     return () => { disconnect() }
-  }, [enabled, connect, disconnect])
+  }, [enabled, accessToken, connect, disconnect])
 }
