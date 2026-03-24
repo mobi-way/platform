@@ -13,16 +13,27 @@ export default function LoginScreen({ onBusSelected }: Props) {
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
   const [busValue, setBusValue] = useState('')
+  const displayName = profile?.full_name || user?.user_metadata?.full_name || user?.email
 
   // If authenticated, show bus selector
-  if (user && profile) {
+  if (user) {
+    const currentUser = user
+
     async function handleBusSubmit() {
       let id = busValue.trim().toUpperCase()
       if (!id) return
       if (!id.startsWith('L')) id = 'L' + id
 
       // Save bus_id to profile
-      await supabase.from('profiles').update({ bus_id: id }).eq('id', user!.id)
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ bus_id: id })
+        .eq('id', currentUser.id)
+
+      if (updateError) {
+        console.warn('[Driver] Failed to persist bus_id:', updateError.message)
+      }
+
       onBusSelected(id)
     }
 
@@ -37,7 +48,7 @@ export default function LoginScreen({ onBusSelected }: Props) {
           </h1>
           <p className="text-[#9ca3af] mt-1 mb-0 text-sm">Interface do Motorista</p>
           <p className="text-[#6b7280] mt-1 mb-4 text-xs">
-            {profile.full_name || user.email}
+            {displayName}
           </p>
 
           <input

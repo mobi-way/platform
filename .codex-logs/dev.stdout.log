@@ -1,0 +1,155 @@
+
+> mobi-way-platform@1.0.0 dev
+> turbo run dev
+
+• Packages in scope: @mobi-way/admin, @mobi-way/shared, @mobi-way/supabase, driver-app, passenger-app, platform-api
+• Running dev in 6 packages
+• Remote caching disabled
+platform-api:dev: cache bypass, force executing 54c4b2391d31eaf8
+driver-app:dev: cache bypass, force executing 2b72ba585776ad47
+passenger-app:dev: cache bypass, force executing ca5c5690013f915f
+@mobi-way/admin:dev: cache bypass, force executing c9dd0845ea6b0475
+passenger-app:dev: 
+@mobi-way/admin:dev: 
+passenger-app:dev: > passenger-app@1.0.0 dev
+passenger-app:dev: > vite
+passenger-app:dev: 
+driver-app:dev: 
+driver-app:dev: > driver-app@1.0.0 dev
+driver-app:dev: > vite
+driver-app:dev: 
+@mobi-way/admin:dev: > @mobi-way/admin@1.0.0 dev
+@mobi-way/admin:dev: > vite
+@mobi-way/admin:dev: 
+platform-api:dev: 
+platform-api:dev: > platform-api@1.0.0 dev
+platform-api:dev: > tsx watch src/index.ts
+platform-api:dev: 
+driver-app:dev: 
+driver-app:dev:   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m519[22m[2m[0m ms[22m
+driver-app:dev: 
+driver-app:dev:   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5175[22m/[39m
+driver-app:dev:   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.3.8:[1m5175[22m/[39m
+passenger-app:dev: 
+passenger-app:dev:   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m522[22m[2m[0m ms[22m
+passenger-app:dev: 
+@mobi-way/admin:dev: 
+@mobi-way/admin:dev:   [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m521[22m[2m[0m ms[22m
+@mobi-way/admin:dev: 
+passenger-app:dev:   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+@mobi-way/admin:dev:   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5174[22m/[39m
+@mobi-way/admin:dev:   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.3.8:[1m5174[22m/[39m
+passenger-app:dev:   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.3.8:[1m5173[22m/[39m
+platform-api:dev: [API] Socket.io server running on http://0.0.0.0:3001
+platform-api:dev: [API] Auth-protected rooms: admin | passenger | driver
+platform-api:dev: [connect] cMSDTGlTTFUwiHqtAAAC as passenger (teste@teste.com) → room "passenger"
+platform-api:dev: [connect] Z2sNTu4wH8nsCQcTAAAF as driver (teste1@teste1.com) → room "driver"
+platform-api:dev: [disconnect] Z2sNTu4wH8nsCQcTAAAF (teste1@teste1.com) — transport close
+platform-api:dev: [connect] DMfTRqPwZt2F70g8AAAI as driver (teste1@teste1.com) → room "driver"
+platform-api:dev: [disconnect] DMfTRqPwZt2F70g8AAAI (teste1@teste1.com) — transport close
+platform-api:dev: [connect] aNfysFvSJvXuLVUJAAAL as driver (teste1@teste1.com) → room "driver"
+platform-api:dev: [disconnect] aNfysFvSJvXuLVUJAAAL (teste1@teste1.com) — transport close
+platform-api:dev: [connect] dynHNNbPAzNjvf82AAAO as driver (teste1@teste1.com) → room "driver"
+platform-api:dev: [connect] 75i6S-mDBjFSQLk_AAAQ as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [disconnect] dynHNNbPAzNjvf82AAAO (teste1@teste1.com) — transport close
+platform-api:dev: [connect] Yx6bzNjhlPtIjU2uAAAT as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [connect] EUNlU-sDi_c37c6OAAAX as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [disconnect] EUNlU-sDi_c37c6OAAAX (admin.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [trip_request] bus L1 from passenger.e2e.0323@teste1.com
+@mobi-way/admin:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+passenger-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+driver-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+@mobi-way/admin:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+@mobi-way/admin:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+passenger-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+passenger-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+driver-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+driver-app:dev: [2m19:54:32[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+platform-api:dev: [disconnect] Yx6bzNjhlPtIjU2uAAAT (passenger.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] 75i6S-mDBjFSQLk_AAAQ (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] cMSDTGlTTFUwiHqtAAAC (teste@teste.com) — transport close
+platform-api:dev: [connect] xedo4fpOlaT5PvZkAAAc as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [connect] FRYiJYixxRF59SV7AAAa as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [connect] F_skpCFLqgldLbnVAAAf as passenger (teste@teste.com) → room "passenger"
+driver-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+@mobi-way/admin:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+passenger-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+driver-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+@mobi-way/admin:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+driver-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+@mobi-way/admin:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+passenger-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+passenger-app:dev: [2m19:54:48[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+platform-api:dev: [disconnect] xedo4fpOlaT5PvZkAAAc (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] FRYiJYixxRF59SV7AAAa (passenger.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] F_skpCFLqgldLbnVAAAf (teste@teste.com) — transport close
+platform-api:dev: [connect] NgBjonBGdi1aqCOpAAAi as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [connect] pRn9G2FFJ3YwfdGcAAAn as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [connect] MNZ1x7l-JDoFjyWCAAAl as passenger (teste@teste.com) → room "passenger"
+driver-app:dev: [2m19:55:00[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/LoginScreen.tsx, /src/index.css[22m
+passenger-app:dev: [2m19:55:08[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.tsx[22m
+platform-api:dev: [disconnect] NgBjonBGdi1aqCOpAAAi (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] 8yl5LpN4INzFK5AuAAAp as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] MNZ1x7l-JDoFjyWCAAAl (teste@teste.com) — client namespace disconnect
+platform-api:dev: [connect] 43917hMj6m8F-jCWAAAr as passenger (teste@teste.com) → room "passenger"
+passenger-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.tsx, /src/contexts/AuthContext.tsx[22m
+@mobi-way/admin:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/contexts/AuthContext.tsx, /src/index.css[22m
+driver-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/LoginScreen.tsx, /src/index.css, /src/contexts/AuthContext.tsx[22m
+driver-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+driver-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+passenger-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+passenger-app:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+@mobi-way/admin:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [33mhmr invalidate [39m[2m/src/contexts/AuthContext.tsx[22m Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+@mobi-way/admin:dev: [2m19:55:40[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/contexts/AuthContext.tsx[22m
+platform-api:dev: [disconnect] 8yl5LpN4INzFK5AuAAAp (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [disconnect] pRn9G2FFJ3YwfdGcAAAn (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] 43917hMj6m8F-jCWAAAr (teste@teste.com) — client namespace disconnect
+platform-api:dev: [connect] pGXbyVQ7kPvt4U0fAAAz as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [connect] iGA2DPm5Ox4ctPZPAAAv as passenger (teste@teste.com) → room "passenger"
+platform-api:dev: [connect] BoqCRZct8DKprOhFAAAx as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+driver-app:dev: [2m19:55:44[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/LoginScreen.tsx, /src/index.css[22m
+platform-api:dev: [disconnect] BoqCRZct8DKprOhFAAAx (passenger.e2e.0323@teste1.com) — transport close
+platform-api:dev: [connect] 3zcxFiGLFe2mGvzYAAA2 as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [connect] 7G7W1vu0utgAvk9JAAA4 as driver (driver.e2e.0323@teste1.com) → room "driver"
+platform-api:dev: [disconnect] pGXbyVQ7kPvt4U0fAAAz (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [connect] eGP8x9R0EOmFBhxeAAA6 as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [trip_request] bus L1 from passenger.e2e.0323@teste1.com
+driver-app:dev: [2m19:57:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+platform-api:dev: [disconnect] 7G7W1vu0utgAvk9JAAA4 (driver.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [disconnect] eGP8x9R0EOmFBhxeAAA6 (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] 3zcxFiGLFe2mGvzYAAA2 (passenger.e2e.0323@teste1.com) — transport close
+platform-api:dev: [connect] qFO4OCpw-dQYplIrAAA8 as driver (driver.e2e.0323@teste1.com) → room "driver"
+platform-api:dev: [connect] bL64XrmQ4zMREPtdAAA- as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [connect] dF7xNCf4W7QrkxEwAABB as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [trip_request] bus L11 from passenger.e2e.0323@teste1.com
+platform-api:dev: [disconnect] qFO4OCpw-dQYplIrAAA8 (driver.e2e.0323@teste1.com) — transport close
+platform-api:dev: [connect] S1VS_1YpCWbGjnrjAABD as driver (driver.e2e.0323@teste1.com) → room "driver"
+platform-api:dev: [connect] 8FtquM1zXxmgW5aOAABF as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [disconnect] 8FtquM1zXxmgW5aOAABF (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [connect] GHpd1d6OxWeQdNzFAABH as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] GHpd1d6OxWeQdNzFAABH (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [trip_request] bus L16 from passenger.e2e.0323@teste1.com
+platform-api:dev: [connect] Y_ZIhD1NZqBzLflQAABJ as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] Y_ZIhD1NZqBzLflQAABJ (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [trip_request] bus L17 from passenger.e2e.0323@teste1.com
+platform-api:dev: [connect] GdyezS6Pn7YRlbZrAABL as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] GdyezS6Pn7YRlbZrAABL (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] ZfPJ-TwMm76iSS5KAABN as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] ZfPJ-TwMm76iSS5KAABN (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] OqrjItMDw6u2WOBSAABP as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] OqrjItMDw6u2WOBSAABP (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [trip_request] bus L15 from passenger.e2e.0323@teste1.com
+@mobi-way/admin:dev: [2m20:14:56[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/App.tsx[22m
+platform-api:dev: [disconnect] bL64XrmQ4zMREPtdAAA- (admin.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] DoVU0dCyi6Wabqz4AABR as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [trip_request] bus L7 from passenger.e2e.0323@teste1.com
+platform-api:dev: [trip_request] bus L11 from passenger.e2e.0323@teste1.com
+platform-api:dev: [disconnect] DoVU0dCyi6Wabqz4AABR (admin.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] lyH9slKF2s_fQTE_AABT as admin (admin.e2e.0323@teste1.com) → room "admin"
+platform-api:dev: [disconnect] S1VS_1YpCWbGjnrjAABD (driver.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] QcLMyxe7_RCe1S2YAABV as driver (driver.e2e.0323@teste1.com) → room "driver"
+platform-api:dev: [disconnect] dF7xNCf4W7QrkxEwAABB (passenger.e2e.0323@teste1.com) — client namespace disconnect
+platform-api:dev: [connect] SiHtNMRrss8QefQMAABX as passenger (passenger.e2e.0323@teste1.com) → room "passenger"
+platform-api:dev: [disconnect] SiHtNMRrss8QefQMAABX (passenger.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] lyH9slKF2s_fQTE_AABT (admin.e2e.0323@teste1.com) — transport close
+platform-api:dev: [disconnect] QcLMyxe7_RCe1S2YAABV (driver.e2e.0323@teste1.com) — transport close

@@ -30,9 +30,13 @@ export function useTripWithPersistence(): UseTripReturn {
 
     // START_TRIP: transitioned from 'options' to 'tracking'
     if (prevPhase === 'options' && phase === 'tracking' && selectedBus && originStop && destStop) {
+      const tripId = crypto.randomUUID()
+      tripIdRef.current = tripId
+
       supabase
         .from('trips')
         .insert({
+          id: tripId,
           passenger_id: user.id,
           bus_id: selectedBus.id,
           origin_lat: originStop.lat,
@@ -43,10 +47,11 @@ export function useTripWithPersistence(): UseTripReturn {
           pickup_time: null,
           dropoff_time: null,
         })
-        .select('id')
-        .single()
-        .then(({ data }) => {
-          if (data) tripIdRef.current = data.id
+        .then(({ error }) => {
+          if (error) {
+            console.error('[Trips] Failed to create trip:', error.message)
+            tripIdRef.current = null
+          }
         })
     }
 
@@ -56,7 +61,11 @@ export function useTripWithPersistence(): UseTripReturn {
         .from('trips')
         .update({ status: 'in_progress' as const, pickup_time: new Date().toISOString() })
         .eq('id', tripIdRef.current)
-        .then(() => {})
+        .then(({ error }) => {
+          if (error) {
+            console.error('[Trips] Failed to mark trip in_progress:', error.message)
+          }
+        })
     }
 
     // CONFIRM_ALIGHTING: phase went from 'tracking' back to 'choosing_origin'
@@ -65,7 +74,11 @@ export function useTripWithPersistence(): UseTripReturn {
         .from('trips')
         .update({ status: 'completed' as const, dropoff_time: new Date().toISOString() })
         .eq('id', tripIdRef.current)
-        .then(() => {})
+        .then(({ error }) => {
+          if (error) {
+            console.error('[Trips] Failed to complete trip:', error.message)
+          }
+        })
       tripIdRef.current = null
     }
 
@@ -75,7 +88,11 @@ export function useTripWithPersistence(): UseTripReturn {
         .from('trips')
         .update({ status: 'cancelled' as const })
         .eq('id', tripIdRef.current)
-        .then(() => {})
+        .then(({ error }) => {
+          if (error) {
+            console.error('[Trips] Failed to cancel trip:', error.message)
+          }
+        })
       tripIdRef.current = null
     }
   }, [trip.state.phase, trip.state.tripStage, trip.state, user])

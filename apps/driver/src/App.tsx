@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import type { AppScreen, NavigationState, PassengerDelta, SystemUpdate } from './types'
 import { useSocket } from './hooks/useSocket'
 import { useAuth } from './contexts/AuthContext'
@@ -21,6 +21,7 @@ export default function App() {
   })
   const [passengerDelta, setPassengerDelta] = useState<PassengerDelta | null>(null)
   const [occupancy, setOccupancy] = useState(0)
+  const passengerDeltaTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useSocket({
     enabled: screen === 'navigating',
@@ -40,6 +41,19 @@ export default function App() {
     setScreen('navigating')
   }, [])
 
+  const handlePassengerDelta = useCallback((delta: PassengerDelta) => {
+    setPassengerDelta(delta)
+
+    if (passengerDeltaTimeoutRef.current) {
+      clearTimeout(passengerDeltaTimeoutRef.current)
+    }
+
+    passengerDeltaTimeoutRef.current = setTimeout(() => {
+      setPassengerDelta(null)
+      passengerDeltaTimeoutRef.current = null
+    }, 6000)
+  }, [])
+
   if (loading) {
     return (
       <div className="absolute inset-0 bg-[#111827] flex items-center justify-center">
@@ -57,10 +71,7 @@ export default function App() {
       busId={busId}
       systemUpdate={systemUpdate}
       onNavUpdate={setNavState}
-      onPassengerDelta={(delta) => {
-        setPassengerDelta(delta)
-        setTimeout(() => setPassengerDelta(null), 6000)
-      }}
+      onPassengerDelta={handlePassengerDelta}
       navState={navState}
       passengerDelta={passengerDelta}
       occupancy={occupancy}

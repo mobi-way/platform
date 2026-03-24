@@ -238,6 +238,15 @@ export function useFleet(): UseFleetReturn {
         const steps = Math.max(1, Math.ceil(dist / MOVEMENT_DIVISOR))
 
         for (let s = 0; s <= steps; s++) {
+          const redirectedEntry = frotaRef.current[busID]
+          if (
+            redirectedEntry &&
+            redirectedEntry.state.priorityQueue.length > 0 &&
+            !redirectedEntry.state.activeTargetIsApp
+          ) {
+            return 'REDIRECT'
+          }
+
           const r   = s / steps
           const lat = lat1 + (lat2 - lat1) * r
           const lon = lon1 + (lon2 - lon1) * r

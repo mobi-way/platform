@@ -18,6 +18,29 @@ export interface UseAuthReturn extends AuthState {
   accessToken: string | null
 }
 
+function getRoleFromUserMetadata(user: User): UserRole | null {
+  const role = user.user_metadata?.role
+  return role === 'admin' || role === 'passenger' || role === 'driver' ? role : null
+}
+
+function buildProfileFallback(user: User): Profile | null {
+  const role = getRoleFromUserMetadata(user)
+  if (!role) return null
+
+  const now = new Date().toISOString()
+
+  return {
+    id: user.id,
+    role,
+    full_name: user.user_metadata?.full_name ?? null,
+    phone: null,
+    bus_id: null,
+    avatar_url: null,
+    created_at: user.created_at ?? now,
+    updated_at: now,
+  }
+}
+
 /**
  * React hook for Supabase auth with role enforcement.
  * @param expectedRole - The role this app expects (e.g. 'admin', 'passenger', 'driver')
@@ -51,9 +74,21 @@ export function useSupabaseAuth(expectedRole: UserRole): UseAuthReturn {
       return
     }
 
-    const profile = await fetchProfile(session.user.id)
+    const profile = await fetchProfile(session.user.id) ?? buildProfileFallback(session.user)
 
-    if (profile && profile.role !== expectedRole) {
+    if (!profile) {
+      await supabase.auth.signOut()
+      setState({
+        user: null,
+        session: null,
+        profile: null,
+        loading: false,
+        error: 'Nao foi possivel identificar o tipo da conta. Entre novamente.',
+      })
+      return
+    }
+
+    if (profile.role !== expectedRole) {
       await supabase.auth.signOut()
       setState({
         user: null,
